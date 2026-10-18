@@ -1,0 +1,20 @@
+name: Module 2B - Scheduled Cron
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+permissions:
+  contents: read
+jobs:
+  scheduled-proof:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify actual schedule event on default branch
+        env:
+          EVENT: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          ACTOR: ${{ github.actor }}
+        run: |
+          test "$EVENT" = "schedule"
+          echo "Student: Ubaidullah Zubair | SAP: 51650"
+          echo "Actor: $ACTOR | Event: $EVENT | Ref: $REF"
+          date -u

@@ -1,0 +1,29 @@
+name: Module 6C - PostgreSQL Service Container
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: student
+          POSTGRES_PASSWORD: lab-only-password
+          POSTGRES_DB: activity
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Confirm container and published port
+        run: docker ps --format 'table {{.ID}}\t{{.Image}}\t{{.Ports}}\t{{.Status}}'
+      - name: Query PostgreSQL via the published port
+        env:
+          PGPASSWORD: lab-only-password
+        run: |
+          psql -h localhost -p 5432 -U student -d activity -v ON_ERROR_STOP=1 -c "SELECT 51650 AS sap_id, 'Ubaidullah Zubair' AS student, current_database();"

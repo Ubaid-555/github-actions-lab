@@ -1,0 +1,25 @@
+name: Module 4 - Variables Secrets and Token
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  data-proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Configuration and masked demonstration secret
+        env:
+          STUDENT: ${{ vars.STUDENT_NAME }}
+          COURSE: ${{ vars.COURSE }}
+          DEMO_SECRET: ${{ secrets.MY_SECRET }}
+        run: |
+          test -n "$DEMO_SECRET"
+          printf '%s\n' "Student=$STUDENT | Course=$COURSE"
+          printf 'Demonstration secret (automatically masked): %s\n' "$DEMO_SECRET"
+      - name: Authenticate REST API with the job token
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: gh api "repos/$REPO" --jq '{repository:.full_name, visibility:.visibility}'
+      - name: Authenticated git operation using checkout credentials
+        run: git ls-remote origin refs/heads/main

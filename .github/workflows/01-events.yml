@@ -1,0 +1,20 @@
+name: Module 2A - Push and Pull Request
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+permissions:
+  contents: read
+jobs:
+  event-proof:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print event and student identity
+        env:
+          ACTOR: ${{ github.actor }}
+          EVENT: ${{ github.event_name }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          echo "Student: Ubaidullah Zubair | SAP: 51650"
+          echo "Actor: $ACTOR | Event: $EVENT | Repository: $REPOSITORY"

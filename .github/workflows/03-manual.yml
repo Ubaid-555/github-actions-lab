@@ -1,0 +1,29 @@
+name: Module 2C - Manual Inputs
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: Student name
+        required: true
+        default: Ubaidullah Zubair
+      greeting:
+        description: Greeting
+        required: true
+        default: Hello
+      data:
+        description: Activity data
+        required: true
+        default: SAP 51650 - SE 7-2
+permissions:
+  contents: read
+jobs:
+  manual-proof:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display supplied inputs safely
+        env:
+          NAME: ${{ inputs.name }}
+          GREETING: ${{ inputs.greeting }}
+          DATA: ${{ inputs.data }}
+          ACTOR: ${{ github.actor }}
+        run: printf '%s\n' "$GREETING, $NAME" "$DATA" "Actor=$ACTOR"

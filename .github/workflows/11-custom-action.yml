@@ -1,0 +1,18 @@
+name: Module 7 - Custom JavaScript Action
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  custom-action-proof:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Invoke released student action
+        id: greeting
+        uses: Ubaid-555/student-greeting-action@v1.0.0
+        with:
+          name: Ubaidullah Zubair
+          greeting: Hello
+      - name: Read custom action output
+        env:
+          MESSAGE: ${{ steps.greeting.outputs.message }}
+        run: printf '%s\n' "$MESSAGE"

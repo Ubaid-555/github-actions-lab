@@ -1,0 +1,29 @@
+name: Module 5A - Multi OS Hosted Runners
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - run: uname -a; echo 'Ubaidullah Zubair - SAP 51650'
+  windows:
+    runs-on: windows-latest
+    steps:
+      - name: Windows PowerShell and Chocolatey
+        shell: pwsh
+        run: |
+          Write-Output 'Ubaidullah Zubair - SAP 51650'
+          [System.Environment]::OSVersion.VersionString
+          $PSVersionTable.PSVersion
+          choco --version
+  macos:
+    runs-on: macos-latest
+    steps:
+      - name: macOS and Swift compilation
+        run: |
+          sw_vers
+          swift --version
+          echo 'print("Hello from Swift - Ubaidullah Zubair - SAP 51650")' > hello.swift
+          swiftc hello.swift -o hello
+          ./hello

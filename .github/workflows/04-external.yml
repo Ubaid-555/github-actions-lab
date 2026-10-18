@@ -1,0 +1,17 @@
+name: Module 2D - External Webhook
+on:
+  repository_dispatch:
+    types: [custom-webhook]
+permissions:
+  contents: read
+jobs:
+  webhook-proof:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display repository dispatch payload
+        env:
+          STUDENT: ${{ github.event.client_payload.student }}
+          SAP: ${{ github.event.client_payload.sap_id }}
+          EVENT: ${{ github.event_name }}
+          ACTOR: ${{ github.actor }}
+        run: printf '%s\n' "Student=$STUDENT" "SAP=$SAP" "Event=$EVENT" "Actor=$ACTOR"

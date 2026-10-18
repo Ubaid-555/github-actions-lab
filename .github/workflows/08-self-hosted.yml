@@ -1,0 +1,19 @@
+name: Module 5B - Self Hosted Runner
+on: workflow_dispatch
+permissions: {}
+jobs:
+  local-proof:
+    if: github.actor == 'Ubaid-555' && github.ref == 'refs/heads/main'
+    runs-on: [self-hosted, Windows, X64, student-51650]
+    timeout-minutes: 5
+    steps:
+      - name: Local runner identity
+        shell: powershell
+        env:
+          RUNNER_NAME: ${{ runner.name }}
+          RUNNER_OS: ${{ runner.os }}
+          ACTOR: ${{ github.actor }}
+        run: |
+          Write-Output 'Student: Ubaidullah Zubair | SAP: 51650'
+          Write-Output "Runner=$env:RUNNER_NAME | OS=$env:RUNNER_OS | Actor=$env:ACTOR"
+          [System.Environment]::OSVersion.VersionString
