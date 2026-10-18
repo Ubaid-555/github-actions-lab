@@ -18,3 +18,6 @@ This repository demonstrates the seven modules in the student activity guideline
 7. `11-custom-action.yml` using https://github.com/Ubaid-555/student-greeting-action
 
 The self-hosted workflow is manual-only, has no repository checkout and executes only fixed diagnostic commands. It is not triggered by public pull requests. The five-minute schedule is temporary for capturing a genuine scheduled run, then will be disabled.
+
+## Pull request demonstration
+This change exercises both the dev push trigger and the pull_request trigger targeting main.
